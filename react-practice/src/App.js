@@ -14,23 +14,16 @@ const App = () => {
     { id: 3, title: "PHP", body: "Description" },
   ]);
 
-  const addNewPost = (event) => {
-    event.preventDefault();
-
-    // Важливо не змінюємо стан напряму. Викликаємо ф-цію setPosts куди
+   // Важливо не змінюємо стан напряму. Викликаємо ф-цію setPosts куди
     // розгортаємо старий масив з існуючими постами та в кінець додаємо новий пост
 
-    setPosts([...posts, { ...post, id: Date.now() }]);
-
-    setPost({
-      title: "",
-      body: "",
-    });
-  };
+  const createPost = (newPost) => {
+  setPosts([...posts, newPost])
+}
 
   return (
     <div className="App">
-      <PostForm />
+      <PostForm create={createPost} />
       <PostList posts={posts} title="Post List" />
     </div>
   );
