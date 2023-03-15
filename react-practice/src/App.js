@@ -11,6 +11,7 @@ import { PostFilter } from "./components/PostFilter";
 import { MyModal } from "./components/UI/modal/MyModal";
 import { MyButton } from "./components/UI/button/MyButton";
 import { usePosts } from "./hooks/usePosts";
+import axios from 'axios';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -25,6 +26,13 @@ const App = () => {
     setPosts([...posts, newPost]);
     setModal(false)
   };
+
+  async function fetchPosts() {
+  const responce = await axios.get('https://jsonplaceholder.typicode.com/posts')
+setPosts(responce.data)
+    //  console.log(responce)
+  }
+
   //для видалення. Отримуємо пост з дочірнього компонента
   const removePost = (post) => {
     setPosts(posts.filter((p) => p.id !== post.id));
@@ -32,6 +40,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <button onClick={fetchPosts}>get posts</button>
       <MyButton
       style={{marginTop:30}}
         onClick={() => setModal(true)}>
