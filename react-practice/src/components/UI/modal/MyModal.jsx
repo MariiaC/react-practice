@@ -1,10 +1,17 @@
 import React from "react";
 import s from './MyModal.module.css'
 
-export const MyModal = ({children}) => {
+export const MyModal = ({children, visible, setVisible}) => {
+   
+   const rootClasses=[s.myModal]
+   
+    if (visible) {
+        rootClasses.push(s.active)
+    }
+    
     return (
-        <div className={s.myModal}>
-            <div className={s.myModalContent}>
+        <div className={rootClasses.join(' ')} onClick={()=> setVisible(false)}>
+            <div className={s.myModalContent} onClick={(e)=> e.stopPropagation()}>
                 {children}
         </div>
         </div>)
